@@ -1,0 +1,92 @@
+.home {
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .title, .inputs {
+        margin-bottom: 100px;
+    }
+
+    .title {
+        width: 45%;
+        text-align: center;
+        h1 {
+            font-size: 30px;
+            display: inline;
+            position: relative;
+            z-index: 1;
+            color: $white;
+
+            &::after {
+                content: '';
+                position: absolute;
+                z-index: 1;
+                width: 60%;
+                height: 1px;
+                top: 150%;
+                left: 20%;
+                background-color: $white;
+            }
+        }
+    }
+
+    .inputs {
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        input {
+            background: none;
+            border: none;
+            outline: inherit;
+            color: $light-grey;
+            border-bottom: solid 1px $light-grey;
+            width: 100%;
+            color: $light-grey;
+            font-family: $main-font;
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 10%;
+
+            &::placeholder {
+                color: $light-grey;
+                font-family: $main-font;
+                font-weight: bold;
+                font-size: 14px;
+                letter-spacing: 10%;
+            }
+
+            &:first-child {
+                margin-bottom: 40px;
+            }
+        }
+    }
+
+    .buttons {
+        .link {
+            background: none;
+            border: none;
+            outline: inherit;
+            font-size: 26px;
+            color: $white;
+            text-decoration: none;
+            background-color: $back-button-color;
+            padding: 14px;
+
+            &.play {
+                margin-right: 40px;
+                padding: 14px 120px;
+                font-size: 25px;
+            }
+
+            &:hover {
+                transition: 0.4s;
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+    }
+}

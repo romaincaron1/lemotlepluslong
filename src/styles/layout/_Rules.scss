@@ -1,0 +1,48 @@
+.rules {
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear;
+    top: 0;
+    left: 0;
+    background: url("../../media/images/background2.png");
+    z-index: 999;
+
+    &.on {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &.off {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 1s, opacity 0.3s linear;
+    }
+
+    .container {
+        width: 80%;
+        margin: 8% auto;
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+
+        .bar {
+            width: 100%;
+            height: 1px;
+            background-color: $white;
+        }
+
+        .text {
+            margin-top: 60px;
+            
+            p {
+                margin-bottom: 20px;
+                text-align: justify;
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+
+    .link {
+        background: none;
+        border: none;
+        outline: inherit;
+        margin-right: 10px;
+        font-size: 26px;
+        color: $white;
+
+        &:hover {
+            transition: 0.4s;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+    }
+}
