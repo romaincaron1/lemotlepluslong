@@ -13,9 +13,243 @@
         padding: 0;
         display: flex;
         justify-content: flex-end;
+        display: flex;
 
-        span {
-            margin: 20px 40px 0 0;
+        .game {
+            width: 65%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            &::after {
+                content: '';
+                width: 1px;
+                height: 80%;
+                background-color: $white;
+                position: absolute;
+                top: 10%;
+                right: 0;
+            }
+
+            .top {
+                margin-top: 60px;
+                width: 80%;
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+
+                    .tour {
+                        margin-left: 10px;
+                        font-size: 40px;
+                    }
+                }
+            }
+            // Board
+            .board {
+                position: absolute;
+                top: 25%;
+                left: 25%;
+                display: flex;
+                flex-direction: column;
+
+                .star {
+                    position: absolute;
+                    color: #252525;
+                    font-size: 40px;
+                    top: 0;
+                    left: 0;
+                    z-index: 900;
+                }
+
+                .square-symbol {
+                    position: absolute;
+                    color: #252525;
+                    font-size: 40px;
+                    top: 0;
+                    left: 0;
+                    z-index: 900;
+                }
+
+                .first-line {
+                    display: flex;
+                    div {
+                        width: 70px;
+                        height: 70px;
+
+                        &:first-child {
+                            border-top-left-radius: 10%;
+                            position: relative;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 100%;
+                                top: 5px;
+                                left: 5px;
+                                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+                            }
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: 10%;
+                        }
+
+                        &:nth-child(2n) {
+                            background-color: $grey;
+                        }
+                        &:nth-child(2n+1) {
+                            background-color: $white;
+                        }
+                    }
+                }
+
+                .second-line {
+                    display: flex;
+                    justify-content: space-between;
+
+                    div {
+                        width: 70px;
+                        height: 70px;
+                        background-color: $grey;
+                    }
+                }
+
+                .third-line {
+                    display: flex;
+                    justify-content: space-between;
+
+                    div {
+                        width: 70px;
+                        height: 70px;
+                        background-color: $white;
+                    }
+                }
+
+                .fourth-line {
+                    display: flex;
+
+                    div {
+                        width: 70px;
+                        height: 70px;
+
+                        &:first-child {
+                            border-bottom-left-radius: 10%;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: 10%;
+                        }
+
+                        &:nth-child(2n) {
+                            background-color: $white;
+                        }
+                        &:nth-child(2n+1) {
+                            background-color: $grey;
+                        }
+                    }
+                }
+            }
+
+            .bot {
+                margin-top: 55%;
+                width: 100%;
+                margin-left: 70px;
+                display: flex;
+                justify-content: center;
+                
+                .word { 
+                    font-size: 24px;
+                    letter-spacing: 40px;
+                }
+            }
+        }
+        .players {
+            flex: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .names {
+                margin: 60px 0;
+                width: 100%;
+                .versus {
+                    width: 60%;
+                    display: flex;
+                    margin: 0 auto;
+                    justify-content: space-between;
+                    position: relative;
+
+                    span {
+                        font-size: 18px;
+
+                        &:nth-child(2) {
+                            font-size: 14px;
+                        }
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 200%;
+                        left: 5%;
+                        width: 90%;
+                        height: 1px;
+                        background-color: $white;
+                    }
+                }
+
+                .symbols {
+                    width: 100%;
+                    display: flex;
+                    margin: 0 auto;
+                    justify-content: space-evenly;
+                    padding-top: 40px;
+
+                    span {
+                        font-size: 28px;
+                        
+                        &:first-child {
+                            margin-right: 10%;
+                        }
+                    }
+                }
+            }
+
+            .player-box {
+                width: 100%;
+                margin-bottom: 40px;
+
+                .top {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 20px 40px 20px;
+                    align-items: flex-end;
+
+                    h3 {
+                        font-size: 28px;
+                        text-decoration: underline;
+                    }
+
+                    span {
+                        font-size: 20px;
+                    }
+                }
+
+                .space {
+                    width: 90%;
+                    margin: 0 auto;
+                    height: 100px;
+                }
+            }
         }
     }
 }

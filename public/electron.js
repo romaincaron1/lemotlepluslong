@@ -23,6 +23,8 @@ function createWindow() {
         : `file://${path.join(__dirname, "../build/index.html")}`
     );
     mainWindow.on("closed", () => (mainWindow = null));
+
+    mainWindow.setPosition(300, 100);
 }
 
 app.on("ready", createWindow);

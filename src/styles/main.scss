@@ -1,23 +1,10 @@
 @import "./base/colors", "./base/default", "./base/fonts";
 
-@import "./layout/Home", "./layout/Links", "./layout/Rules", "./layout/Play";
+@import "./layout/Home", "./layout/Links", "./layout/Rules", "./layout/Play", "./layout/Pick", "./layout/Word";
 
-.body-home {
+body {
     width: 100%;
     height: 100vh;
-    background-image: url("../media/images/background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-	color: $white;
-	font-family: $main-font;
-	font-weight: bold;
-}
-
-.body-outside {
-    width: 100%;
-    height: 100vh;
-    background-image: url("../media/images/background2.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -25,4 +12,16 @@
 	font-family: $main-font;
 	font-weight: bold;
     background-color: black;
+
+    &.body-home {
+        background-image: url("../media/images/background.jpg");
+    }
+    
+    &.body-outside {
+        background-image: url("../media/images/background2.png");
+    }
+
+    span, .link, h1, h2, h3, p {
+        user-select: none;
+    }
 }

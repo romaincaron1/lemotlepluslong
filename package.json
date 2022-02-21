@@ -1,11 +1,11 @@
 {
-  "name": "react-electron",
-  "version": "0.1.0",
-  "description": "Simple boilerplate for developing an Electron app with React",
-  "author": "willjw3",
+  "name": "lmlpl",
+  "version": "1.0.0",
+  "description": "Le jeu du mot le plus long adapté",
+  "author": "romaincaron",
   "build": {
-    "appId": "react.electron",
-    "productName": "react-electron",
+    "appId": "lmlpl.game",
+    "productName": "lmlpl",
     "mac": {
       "icon": "build/logo512.png",
       "target": "tar.gz"
@@ -14,13 +14,13 @@
       "category": "Utils",
       "icon": "build/icon.png",
       "packageCategory": "utils",
-      "maintainer": "your name <your email>",
+      "maintainer": "caron.romain@free.fr",
       "asar": true,
       "target": [
         "deb",
         "tar.xz"
       ],
-      "synopsis": "Basically same as description but shorter"
+      "synopsis": "Le jeu du mot le plus long adapté"
     },
     "win": {
       "icon": "build/icon.png",

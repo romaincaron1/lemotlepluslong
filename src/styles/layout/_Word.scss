@@ -1,0 +1,53 @@
+.word-bloc {
+    width: 92%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    input {
+        background: none;
+        border: none;
+        outline: inherit;
+        color: $light-grey;
+        border-bottom: solid 1px $light-grey;
+        width: 100%;
+        color: $light-grey;
+        font-family: $main-font;
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 10%;
+        margin-bottom: 48px;
+
+        &::placeholder {
+            font-size: 16px;
+        }
+    }
+
+    .word-buttons {
+        display: flex;
+
+        button {
+            background: none;
+            border: none;
+            outline: inherit;
+            font-size: 16px;
+            font-family: Cinzel;
+            font-weight: bold;
+            color: $white;
+            text-decoration: none;
+            background-color: $back-button-color;
+            padding: 14px;
+
+            &.submit {
+                width: 40%;
+                margin-right: 20px;
+            }
+            
+            &:hover {
+                transition: 0.4s;
+                opacity: 0.6;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.pick {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .button {
+        background: none;
+        border: none;
+        outline: inherit;
+        font-size: 16px;
+        font-family: Cinzel;
+        font-weight: bold;
+        color: $white;
+        text-decoration: none;
+        background-color: $back-button-color;
+        padding: 14px;
+        width: 80%;
+        
+        &:first-child {
+            margin-bottom: 10px;
+        }
+        
+        &:hover {
+            transition: 0.4s;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+    }
+}
