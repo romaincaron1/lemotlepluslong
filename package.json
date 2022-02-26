@@ -34,6 +34,8 @@
     "cross-env": "^6.0.3",
     "electron-is-dev": "^1.1.0",
     "react": "^16.11.0",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",

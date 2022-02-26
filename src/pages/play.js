@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAlert } from "react-alert";
 import Links from "../components/Links";
 import Rules from "../components/Rules";
 import Pick from "../components/Pick";
@@ -10,6 +11,7 @@ import { nameSplitter, pickRandomStarter } from "../functions/playFunctions";
 import { topPos, leftPos } from "../data/positions.json";
 
 const Play = () => {
+  const alert = useAlert();
   var { names } = useParams();
   names = nameSplitter(names);
   const time = 90;
@@ -30,16 +32,15 @@ const Play = () => {
   const [sValid, setsValid] = useState(0);
   const [seconds, setSeconds] = useState(time);
   const [isActive, setIsActive] = useState(false);
+  const [isFVisible, setIsFVisible] = useState(true);
+  const [isSVisible, setIsSVisible] = useState(true);
   // 2 états -> pick et word
   const [gameState, setGameState] = useState("pick");
-  const [fPlayerCase, setFPlayerCase] = useState(firstPlayer.case)
-  const [sPlayerCase, setSPlayerCase] = useState(secondPlayer.case)
+  const [fPlayerCase, setFPlayerCase] = useState(firstPlayer.case);
+  const [sPlayerCase, setSPlayerCase] = useState(secondPlayer.case);
   // Nombre de tour
   const [nTours, setNTours] = useState(0);
   // Timer
-  function toggle() {
-    setIsActive(!isActive);
-  }
   function reset() {
     setSeconds(time);
     setIsActive(false);
@@ -47,6 +48,8 @@ const Play = () => {
 
   function resetRound() {
     setGameState("pick");
+    setIsFVisible(true);
+    setIsSVisible(true);
     setfValid(0);
     setsValid(0);
     setfValue("");
@@ -62,11 +65,11 @@ const Play = () => {
   }
 
   useEffect(() => {
-    if(seconds === 0) {
-      if(fValue.length > 0) {
+    if (seconds === 0) {
+      if (fValue.length > 0) {
         setFPlayerCase((fPlayerCase) => fPlayerCase + 1);
       }
-      if(sValue.length > 0) {
+      if (sValue.length > 0) {
         setSPlayerCase((sPlayerCase) => sPlayerCase + 1);
       }
       resetRound();
@@ -74,7 +77,7 @@ const Play = () => {
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds(seconds => seconds - 1);
+        setSeconds((seconds) => seconds - 1);
       }, 1000);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);
@@ -96,34 +99,103 @@ const Play = () => {
       });
     }
   }, [word]);
+  // Déplacement des pions + placement aux extrémités si les deux pions sont sur la même case
+  const movePawn = () => {
+    if (sPlayerCase === fPlayerCase) {
+      setFPos({
+        top: "calc(" + topPos[fPlayerCase] + "px + 13px)",
+        left: "calc(" + leftPos[fPlayerCase] + "px + 13px)",
+      });
+      setSPos({
+        top: "calc(" + topPos[sPlayerCase] + "px - 13px)",
+        left: "calc(" + leftPos[sPlayerCase] + "px - 13px)",
+      });
+    } else {
+      setFPos({
+        top: topPos[fPlayerCase] + "px",
+        left: leftPos[fPlayerCase] + "px",
+      });
+      setSPos({
+        top: topPos[sPlayerCase] + "px",
+        left: leftPos[sPlayerCase] + "px",
+      });
+    }
+  };
   // Lorsque l'on confirme le mot saisie
   useEffect(() => {
-    var motValidF = ""
-    var motValidS = ""
-    var phraseGagnant =""
+    movePawn();
+
     if (fValid === 1 && sValid === 1) {
-      if(fValue.length > 0) {
+      var fValidWordSentence = (
+        <p>Le mot entré par <span className="important-word">{firstPlayer.name}</span> n'est pas valide.</p>
+      );
+      var sValidWordSentence = (
+        <p>Le mot entré par <span className="important-word">{secondPlayer.name}</span> n'est pas valide.</p>
+      );
+      var winnerSentence = (
+        <p>Personne n'avance.</p>
+      );
+      // Vérification de la validité du mot du joueur 1
+      if (fValue.length > 0) {
         setFPlayerCase((fPlayerCase) => fPlayerCase + fValue.length);
-        // Procéder à la vérification avec l'API
-        motValidF = `Le joueur ${firstPlayer.name} a entré un mot valide : "${fValue}" d'une longeur de ${fValue.length}`
+        fValidWordSentence = (
+          <p>
+            Le joueur <span className="important-word">{firstPlayer.name}</span>{" "}
+            a entré un mot valide :{" "}
+            <span className="important-word">{fValue}</span> d'une longueur de{" "}
+            <span className="important-word">{fValue.length}</span>.
+          </p>
+        );
       }
-      if(sValue.length > 0) {
+      // Vérification de la validité du mot du joueur 1
+      if (sValue.length > 0) {
         setSPlayerCase((sPlayerCase) => sPlayerCase + sValue.length);
-        // Procéder à la vérification avec l'API
-        motValidS = `Le joueur ${secondPlayer.name} a entré un mot valide : "${sValue}" d'une longeur de ${sValue.length}`
+        sValidWordSentence = (
+          <p>
+            Le joueur{" "}
+            <span className="important-word">{secondPlayer.name}</span> a entré
+            un mot valide : <span className="important-word">{sValue}</span>{" "}
+            d'une longueur de{" "}
+            <span className="important-word">{sValue.length}</span>.
+          </p>
+        );
       }
+      // Vérification du gagnant
       if (fValue.length > sValue.length) {
-        phraseGagnant = `Le mot de ${firstPlayer.name} est le mot le plus long`
-        alert(motValidF + "\n" + motValidS + "\n" + phraseGagnant)
+        winnerSentence = (
+          <p>
+            Le mot de <span className="important-word">{firstPlayer.name}</span>{" "}
+            est le plus long ! Il avance donc de{" "}
+            <span className="important-word">{fValue.length}</span> case(s).
+          </p>
+        );
+      } else if (fValue.length < sValue.length) {
+        winnerSentence = (
+          <p>
+            Le mot de{" "}
+            <span className="important-word">{secondPlayer.name}</span> est le
+            plus long ! Il avance donc de{" "}
+            <span className="important-word">{sValue.length}</span> case(s).
+          </p>
+        );
+      } else if (fValue.length === sValue.length && (fValue !== "" && sValue !== "")) {
+        winnerSentence = (
+          <p>
+            Les deux mots sont de même longueur ! Les deux joueurs avancent de{" "}
+            <span className="important-word">{fValue.length}</span> et{" "}
+            <span className="important-word">{sValue.length}</span> case(s).
+          </p>
+        );
       }
-      else {
-        phraseGagnant = `Le mot de ${secondPlayer.name} est le mot le plus long`
-        alert(motValidF + "\n" + motValidS + "\n" + phraseGagnant)
-      }
+      alert.show(
+        <div className="alert-bloc">
+          {fValidWordSentence}
+          {sValidWordSentence}
+          {winnerSentence}
+        </div>
+      );
       resetRound();
     }
-
-    
   }, [fValid, sValid]);
 
   const handleRulesClick = () => {
@@ -154,7 +226,7 @@ const Play = () => {
     if (e.keyCode === 8 || e.keyCode === 46) {
       e.preventDefault();
     }
-    const fullWord = e.target.value;
+    const fullWord = e.target.value.toLowerCase();
     const letter = fullWord[fullWord.length - 1];
     // Vérifier si la lettre entrée est contenu dans la série de lettre piochée
     if (fTempWord.includes(letter)) {
@@ -168,7 +240,7 @@ const Play = () => {
     if (e.keyCode === 8 || e.keyCode === 46) {
       e.preventDefault();
     }
-    const fullWord = e.target.value;
+    const fullWord = e.target.value.toLowerCase();
     const letter = fullWord[fullWord.length - 1];
     // Vérifier si la lettre entrée est contenu dans la série de lettre piochée
     if (sTempWord.includes(letter)) {
@@ -180,11 +252,11 @@ const Play = () => {
   // Submit buttons
   const handleFSubmit = (e) => {
     setfValid(1);
-    e.target.style.visibility = "hidden";
+    setIsFVisible(false);
   };
   const handleSSubmit = (e) => {
     setsValid(1);
-    e.target.style.visibility = "hidden";
+    setIsSVisible(false);
   };
   // Resets
   const handleFreset = () => {
@@ -205,19 +277,19 @@ const Play = () => {
   // Déplacements
   const [fPos, setFPos] = useState({});
   useEffect(() => {
-    setFPos({top: topPos[fPlayerCase] + "px", left: leftPos[fPlayerCase] + "px"});
-    if(fPlayerCase === 18) {
+    movePawn();
+    if (fPlayerCase === 18) {
       setFPlayerCase(0);
     }
-  }, [fPlayerCase])
+  }, [fPlayerCase]);
 
   const [sPos, setSPos] = useState({});
   useEffect(() => {
-    setSPos({top: topPos[sPlayerCase] + "px", left: leftPos[sPlayerCase] + "px"});
-    if(sPlayerCase === 18) {
+    movePawn();
+    if (sPlayerCase === 18) {
       setSPlayerCase(0);
     }
-  }, [sPlayerCase])
+  }, [sPlayerCase]);
 
   return (
     <div className="play-page">
@@ -233,8 +305,12 @@ const Play = () => {
             <span>TIMER : {seconds}</span>
           </div>
           <div className="board">
-            <span className="star" style={fPos}>{firstPlayer.getSymbolHref()}</span>
-            <span className="square-symbol" style={sPos}>{secondPlayer.getSymbolHref()}</span>
+            <span className="star" style={fPos}>
+              {firstPlayer.getSymbolHref()}
+            </span>
+            <span className="square-symbol" style={sPos}>
+              {secondPlayer.getSymbolHref()}
+            </span>
             <div className="first-line">
               <div className="square" id="1" />
               <div className="square" id="2" />
@@ -299,6 +375,7 @@ const Play = () => {
                 handleSubmit={handleFSubmit}
                 value={fValue}
                 handleReset={handleFreset}
+                visibility={isFVisible}
               />
             )}
           </div>
@@ -319,6 +396,7 @@ const Play = () => {
                 handleSubmit={handleSSubmit}
                 value={sValue}
                 handleReset={handleSreset}
+                visibility={isSVisible}
               />
             )}
           </div>

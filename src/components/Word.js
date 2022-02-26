@@ -1,6 +1,6 @@
 import React from "react";
 
-const Word = ({ handleChange, handleSubmit, value, handleReset }) => {
+const Word = ({ handleChange, handleSubmit, value, handleReset, visibility }) => {
   return (
     <div className="word-bloc">
       <input
@@ -8,10 +8,11 @@ const Word = ({ handleChange, handleSubmit, value, handleReset }) => {
         value={value}
         onChange={handleChange}
         placeholder="ENTREZ VOTRE MOT"
+        disabled={visibility ? false : true}
       />
       <div className="word-buttons">
-        <button className="submit" onClick={handleSubmit}>CONFIRMER</button>
-        <button className="reset" onClick={handleReset}><i class='bx bx-reset'></i></button>
+        <button className="submit" style={visibility ? {} : {display: "none"}} onClick={handleSubmit}>CONFIRMER</button>
+        <button className="reset" style={visibility ? {} : {display: "none"}} onClick={handleReset}><i class='bx bx-reset'></i></button>
       </div>
     </div>
   );
