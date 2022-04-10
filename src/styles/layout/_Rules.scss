@@ -23,7 +23,7 @@
 
     .container {
         width: 80%;
-        margin: 8% auto;
+        margin: 6% auto;
 
         h1 {
             font-size: 22px;
@@ -37,11 +37,19 @@
         }
 
         .text {
-            margin-top: 60px;
+            margin-top: 40px;
+
+            h2 {
+                text-decoration: underline;
+                margin: 20px 0;
+                font-size: 17px;
+            }
             
             p {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
                 text-align: justify;
+                font-family:'Times New Roman', Times, serif;
+                letter-spacing: 1px;
             }
         }
     }

@@ -77,6 +77,10 @@
     }
 
     .buttons {
+        display: flex;
+        width: 480px;
+        justify-content: space-between;
+
         .link {
             background: none;
             border: none;
@@ -88,7 +92,6 @@
             padding: 14px;
 
             &.play {
-                margin-right: 40px;
                 padding: 14px 120px;
                 font-size: 25px;
             }

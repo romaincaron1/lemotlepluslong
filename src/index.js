@@ -1,13 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { HashRouter as Router, Route } from "react-router-dom";
 import { render } from "react-dom";
-import { transitions, positions, Provider as AlertProvider, types } from "react-alert";
+import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import "./styles/main.scss";
 
 import Home from "./pages/home";
 import Play from "./pages/play";
+import End from "./pages/end";
 
 const options = {
   position: positions.BOTTOM_CENTER,
@@ -25,7 +25,8 @@ const Root = () => (
       <div>
         <main>
           <Route exact path="/" component={Home} />
-          <Route path="/play/:names" component={Play} />
+          <Route path="/play/:gamemode/:names" component={Play} />
+          <Route path="/end/:winner" component={End} />
         </main>
       </div>
     </Router>

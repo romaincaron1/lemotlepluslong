@@ -1,6 +1,5 @@
 // :Joueur1&Joueur2 -> ['Joueur1', 'Joueur2']
 const nameSplitter = (names) => {
-  names = names.substr(1);
   names = names.split("&");
   return names;
 };

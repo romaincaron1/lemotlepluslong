@@ -23,7 +23,6 @@ function createWindow() {
         : `file://${path.join(__dirname, "../build/index.html")}`
     );
     mainWindow.on("closed", () => (mainWindow = null));
-    mainWindow.isMenuBarVisible = false;
     mainWindow.setPosition(300, 100);
 }
 
